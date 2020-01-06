@@ -13,11 +13,27 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v1
+
+      - name: Install Linuxbrew
+        run: |
+          sudo apt-get update && sudo apt-get -y install jq
+          source ./install-linuxbrew.sh
+          echo "::set-env name=HOMEBREW_PREFIX::${HOMEBREW_PREFIX}"
+          echo "::set-env name=HOMEBREW_CELLAR::${HOMEBREW_CELLAR}"
+          echo "::set-env name=HOMEBREW_REPOSITORY::${HOMEBREW_REPOSITORY}"
+          echo "::add-path::${HOMEBREW_PREFIX}/bin"
+          echo "::add-path::${HOMEBREW_PREFIX}/sbin"
+          # Hack: change permissions for library from 666 to 644 since the umask is not honored
+          #  yet 'brew audit' requires 644 for the formula file on Linux
+          # We change permissions for all taps, since brew will lowercase org folder names, so
+          #  ...SOURCE_ORGANIZATION is not necessarily a valid folder name
+          chmod -R go-w /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps
+
       - name: Install current PR as tap
         run: |
           github_user="kalmalyzer"
           github_tap_repo="homebrew-prebuilt-amiga-dev-tools"
-          HOMEBREW_TAP_DIR="/usr/local/Homebrew/Library/Taps/${github_user}/${github_tap_repo}"
+          HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Library/Taps/${github_user}/${github_tap_repo}"
           mkdir -p "${HOMEBREW_TAP_DIR}"
           rm -rf "${HOMEBREW_TAP_DIR}"
           ln -s "${PWD}" "${HOMEBREW_TAP_DIR}"
