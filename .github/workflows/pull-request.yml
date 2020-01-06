@@ -15,16 +15,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install current PR as tap
         run: |
-          echo "hello"
-          x=12
-          github_user=12
-          githubuser=12
-          github_user="apa"
-          githubuser="apa"
-          echo "world"
           github_user="kalmalyzer"
           github_tap_repo="homebrew-prebuilt-amiga-dev-tools"
-          HOMEBREW_TAP_DIR="/usr/local/Homebrew/Library/Taps/$(github_user)/$(github_tap_repo)"
+          HOMEBREW_TAP_DIR="/usr/local/Homebrew/Library/Taps/${github_user}/${github_tap_repo}"
           mkdir -p "${HOMEBREW_TAP_DIR}"
           rm -rf "${HOMEBREW_TAP_DIR}"
           ln -s "${PWD}" "${HOMEBREW_TAP_DIR}"
