@@ -39,5 +39,5 @@ jobs:
           ln -s "${PWD}" "${HOMEBREW_TAP_DIR}"
 
       - name: Run brew test-bot
-        run: brew test-bot
+        run: brew test-bot --verbose
  
