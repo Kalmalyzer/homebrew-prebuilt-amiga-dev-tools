@@ -15,6 +15,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install current PR as tap
         run: |
+          echo "hello"
+          x=12
+          echo "world"
           github_user=kalmalyzer
           github_tap_repo=homebrew-prebuilt-amiga-dev-tools
           HOMEBREW_TAP_DIR="/usr/local/Homebrew/Library/Taps/$(github_user)/$(github_tap_repo)"
