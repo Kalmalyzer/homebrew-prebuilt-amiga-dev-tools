@@ -1,9 +1,9 @@
 class Vlink < Formula
   desc "Cross-linker for various OSes"
   homepage "http://sun.hasenbraten.de/vlink"
-  url "http://server.owl.de/~frank/tags/vlink0_16a.tar.gz"
-  version "0.16a"
-  sha256 "5ffeb9f544628d69257185771199530f31800a6949b4cc52d5da2ded72c212bc"
+  url "http://server.owl.de/~frank/tags/vlink0_16b.tar.gz"
+  version "0.16b"
+  sha256 "2aab33fd0a9c41f10cb92d15bafcd595409120467fd7c875c029bfbec3bbf7d1"
   version_scheme 1
 
   head do
