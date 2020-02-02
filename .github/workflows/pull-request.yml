@@ -10,11 +10,11 @@ on:
 jobs:
   test:
     name: Test
-      runs-on: ubuntu-16.04
-      steps:
-        - uses: actions/checkout@v1
-        - name: Test
-          run: git diff --name-only $GITHUB_SHA $GITHUB_REF
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Test
+        run: git diff --name-only $GITHUB_SHA $GITHUB_REF
 
   # build:
   #   name: Build PR
