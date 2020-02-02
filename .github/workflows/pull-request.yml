@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Test
-        run: git diff --name-only $GITHUB_SHA $GITHUB_REF
+        run: git diff --name-only $GITHUB_SHA HEAD
 
   # build:
   #   name: Build PR
