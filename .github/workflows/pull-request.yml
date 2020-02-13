@@ -28,12 +28,14 @@ jobs:
           #  installed by linuxbrew will make `brew doctor` produce warnings
           sudo rm -rf /usr/local/include
 
-          source ./install-linuxbrew.sh
+          source ./linux/install-linuxbrew.sh
+
           echo "::set-env name=HOMEBREW_PREFIX::${HOMEBREW_PREFIX}"
           echo "::set-env name=HOMEBREW_CELLAR::${HOMEBREW_CELLAR}"
           echo "::set-env name=HOMEBREW_REPOSITORY::${HOMEBREW_REPOSITORY}"
           echo "::add-path::${HOMEBREW_PREFIX}/bin"
           echo "::add-path::${HOMEBREW_PREFIX}/sbin"
+
           # Hack: change permissions for library from 666 to 644 since the umask is not honored
           #  yet 'brew audit' requires 644 for the formula file on Linux
           # We change permissions for all taps, since brew will lowercase org folder names, so
