@@ -17,11 +17,13 @@ jobs:
       - name: Retrieve formula name
         id: retrieve_formula_name
         run: |
+          umask 022
           FORMULA=$(./linux/get-formula-from-pr-contents.sh "${GITHUB_REPOSITORY}" "${{ github.event.pull_request.number }}")
           echo ::set-output name=FORMULA::${FORMULA}
 
       - name: Install Linuxbrew
         run: |
+          umask 022
           sudo apt-get update && sudo apt-get -y install jq
 
           # Hack: Remove all files from /usr/local/include as any files there which have not been
@@ -44,6 +46,7 @@ jobs:
 
       - name: Install current PR as tap
         run: |
+          umask 022
           GITHUB_TAP_ORGANIZATON="kalmalyzer"
           GITHUB_TAP_REPOSITORY="homebrew-prebuilt-amiga-dev-tools"
           HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Library/Taps/${GITHUB_TAP_ORGANIZATION}/${GITHUB_TAP_REPOSITORY}"
@@ -53,6 +56,7 @@ jobs:
 
       - name: Run brew test-bot
         run: |
+          umask 022
           HOMEBREW_DEVELOPER=1
           HOMEBREW_NO_AUTO_UPDATE=1
           HOMEBREW_NO_EMOJI=1
