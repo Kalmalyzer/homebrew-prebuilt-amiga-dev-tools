@@ -14,8 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Retrieve formula name
+        id: retrieve-formula-name
         run: |
-          FORMULA=./linux/get-formula-from-pr-contents.sh "${GITHUB_REPOSITORY}" "${{ github.event.pull_request.number }}"
+          FORMULA=$(./linux/get-formula-from-pr-contents.sh "${GITHUB_REPOSITORY}" "${{ github.event.pull_request.number }}")
           echo ::set-output name=FORMULA::${FORMULA}
 
   # build:
