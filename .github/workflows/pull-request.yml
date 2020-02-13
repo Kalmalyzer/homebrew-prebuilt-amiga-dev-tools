@@ -13,11 +13,10 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v1
-      - name: Test
+      - name: Retrieve formula name
         run: |
-          URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-          FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
-          echo $FILES
+          FORMULA=./linux/get-formula-from-pr-contents.sh "${GITHUB_REPOSITORY}" "${{ github.event.pull_request.number }}"
+          echo ::set-output name=FORMULA::${FORMULA}
 
   # build:
   #   name: Build PR
