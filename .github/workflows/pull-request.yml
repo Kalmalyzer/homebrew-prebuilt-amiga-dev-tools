@@ -56,6 +56,12 @@ jobs:
           rm -rf "${HOMEBREW_TAP_DIR}"
           ln -s "${PWD}" "${HOMEBREW_TAP_DIR}"
 
+          echo "Current permissions, /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/:"
+          ls -l /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/
+          echo "Current permissions, /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/:"
+          ls -l /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/
+          echo "Current permissions, /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/homebrew-prebuilt-amiga-dev-tools/:"
+          ls -l /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/homebrew-prebuilt-amiga-dev-tools/
           echo "Current permissions, /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/homebrew-prebuilt-amiga-dev-tools/Formula/:"
           ls -l /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/homebrew-prebuilt-amiga-dev-tools/Formula/
 
