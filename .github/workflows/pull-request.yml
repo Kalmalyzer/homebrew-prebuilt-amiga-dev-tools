@@ -38,7 +38,8 @@ jobs:
 
       - name: Install current PR as tap
         run: |
-          HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/${{ github.repository }}"
+          GITHUB_REPOSITORY=${{ github.repository }}
+          HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/${GITHUB_REPOSITORY,,}"
           mkdir -p "${HOMEBREW_TAP_DIR}"
           rm -rf "${HOMEBREW_TAP_DIR}"
           ln -s "${PWD}" "${HOMEBREW_TAP_DIR}"
