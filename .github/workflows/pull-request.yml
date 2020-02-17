@@ -13,14 +13,44 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v1
+
+      - name: Retrieve formula name
+        id: retrieve_formula_name
+        run: |
+          FORMULA=$(./linux/get-formula-from-pr-contents.sh "${GITHUB_REPOSITORY}" "${{ github.event.pull_request.number }}")
+          echo ::set-output name=FORMULA::${FORMULA}
+
+      - name: Install Linuxbrew
+        run: |
+          sudo apt-get update && sudo apt-get -y install jq
+
+          # Hack: Remove all files from /usr/local/include as any files there which have not been
+          #  installed by linuxbrew will make `brew doctor` produce warnings
+          sudo rm -rf /usr/local/include
+
+          source ./linux/install-linuxbrew.sh
+
+          echo "::set-env name=HOMEBREW_PREFIX::${HOMEBREW_PREFIX}"
+          echo "::set-env name=HOMEBREW_CELLAR::${HOMEBREW_CELLAR}"
+          echo "::set-env name=HOMEBREW_REPOSITORY::${HOMEBREW_REPOSITORY}"
+          echo "::add-path::${HOMEBREW_PREFIX}/bin"
+          echo "::add-path::${HOMEBREW_PREFIX}/sbin"
+
       - name: Install current PR as tap
         run: |
-          github_user=kalmalyzer
-          github_tap_repo=homebrew-prebuilt-amiga-dev-tools
-          HOMEBREW_TAP_DIR="/usr/local/Homebrew/Library/Taps/$(github_user)/$(github_tap_repo)"
+          # Convert GitHub repository string (username/reponame) to lower case in usage, since
+          #  brew does the same internally
+          GITHUB_REPOSITORY=${{ github.repository }}
+          HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/${GITHUB_REPOSITORY,,}"
           mkdir -p "${HOMEBREW_TAP_DIR}"
           rm -rf "${HOMEBREW_TAP_DIR}"
           ln -s "${PWD}" "${HOMEBREW_TAP_DIR}"
+
       - name: Run brew test-bot
-        run: brew test-bot
- 
+        run: |
+          HOMEBREW_DEVELOPER=1
+          HOMEBREW_NO_AUTO_UPDATE=1
+          HOMEBREW_NO_EMOJI=1
+          HOMEBREW_FAIL_LOG_LINES=150
+          HOMEBREW_COLOR=1
+          brew test-bot --verbose ${{ steps.retrieve_formula_name.outputs.FORMULA }}
