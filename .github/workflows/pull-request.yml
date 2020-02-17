@@ -65,11 +65,11 @@ jobs:
           echo "Current permissions, /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/homebrew-prebuilt-amiga-dev-tools/Formula/:"
           ls -l /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/kalmalyzer/homebrew-prebuilt-amiga-dev-tools/Formula/
 
-      # - name: Run brew test-bot
-      #   run: |
-      #     HOMEBREW_DEVELOPER=1
-      #     HOMEBREW_NO_AUTO_UPDATE=1
-      #     HOMEBREW_NO_EMOJI=1
-      #     HOMEBREW_FAIL_LOG_LINES=150
-      #     HOMEBREW_COLOR=1
-      #     brew test-bot --verbose ${{ steps.retrieve_formula_name.outputs.FORMULA }}
+      - name: Run brew test-bot
+        run: |
+          HOMEBREW_DEVELOPER=1
+          HOMEBREW_NO_AUTO_UPDATE=1
+          HOMEBREW_NO_EMOJI=1
+          HOMEBREW_FAIL_LOG_LINES=150
+          HOMEBREW_COLOR=1
+          brew test-bot --verbose ${{ steps.retrieve_formula_name.outputs.FORMULA }}
