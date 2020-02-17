@@ -51,7 +51,7 @@ jobs:
         run: |
           GITHUB_TAP_ORGANIZATON="kalmalyzer"
           GITHUB_TAP_REPOSITORY="homebrew-prebuilt-amiga-dev-tools"
-          HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Library/Taps/${GITHUB_TAP_ORGANIZATION}/${GITHUB_TAP_REPOSITORY}"
+          HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/${GITHUB_TAP_ORGANIZATION}/${GITHUB_TAP_REPOSITORY}"
           mkdir -p "${HOMEBREW_TAP_DIR}"
           rm -rf "${HOMEBREW_TAP_DIR}"
           ln -s "${PWD}" "${HOMEBREW_TAP_DIR}"
