@@ -38,6 +38,8 @@ jobs:
 
       - name: Install current PR as tap
         run: |
+          # Convert GitHub repository string (username/reponame) to lower case in usage, since
+          #  brew does the same internally
           GITHUB_REPOSITORY=${{ github.repository }}
           HOMEBREW_TAP_DIR="/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/${GITHUB_REPOSITORY,,}"
           mkdir -p "${HOMEBREW_TAP_DIR}"
