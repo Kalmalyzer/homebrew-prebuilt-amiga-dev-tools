@@ -41,12 +41,6 @@ jobs:
           echo "Current permissions, /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps:"
           ls -l /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps
 
-          # Hack: change permissions for library from 666 to 644 since the umask is not honored
-          #  yet 'brew audit' requires 644 for the formula file on Linux
-          # We change permissions for all taps, since brew will lowercase org folder names, so
-          #  ...SOURCE_ORGANIZATION is not necessarily a valid folder name
-          chmod -R go-w /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps
-
       - name: Install current PR as tap
         run: |
           GITHUB_TAP_ORGANIZATION="kalmalyzer"
